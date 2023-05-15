@@ -10,4 +10,5 @@ public class InputDto {
     private Integer warehouseId;
     private Integer supplierId;
     private Integer currencyId;
+    private String code;
 }
