@@ -27,6 +27,11 @@ public class OutputService {
         return outputRepository.findAll();
     }
 
+    /**
+     * Yangi chiqimlar tarixi qo'shildi.
+     * @param outputDto
+     * @return
+     */
     public Result addOutputService(OutputDto outputDto){
         Output output = new Output();
         Optional<Client> optionalClient = clientRepository.findById(outputDto.getClientId());
@@ -45,6 +50,11 @@ public class OutputService {
         return new Result("Chiqim malumotlari yangilandi.",true);
     }
 
+    /**
+     * Chiqimlar tarixini o'chirish.
+     * @param id
+     * @return
+     */
     public Result deleteOutputService(Integer id){
         Optional<Output> optionalOutput = outputRepository.findById(id);
         if (!optionalOutput.isPresent()) return new Result("bunday  chimiq mavjud emas",false);

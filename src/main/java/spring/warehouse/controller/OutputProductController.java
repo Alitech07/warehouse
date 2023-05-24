@@ -29,4 +29,11 @@ public class OutputProductController {
         Result result = outputProductService.addOutputProudct(outputProductDto);
         return ResponseEntity.status(result.isSuccess()?202:409).body(result);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity<?> deleteOutputProduct(@PathVariable Integer id){
+        Result result = outputProductService.deleteOutputProduct(id);
+        return ResponseEntity.status(result.isSuccess()?201:409).body(result);
+    }
 }
+

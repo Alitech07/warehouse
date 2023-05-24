@@ -58,4 +58,10 @@ public class OutputProductService {
 
         return new Result("Yangi mahsulot chiqimi kiritildi.",true);
     }
+
+    public Result deleteOutputProduct(Integer id) {
+        Optional<OutputProdact> optionalOutputProdact = outputProductReposiotry.findById(id);
+        if (!optionalOutputProdact.isPresent()) return new Result("Bunday mahsulot chiqimi mavjud emas.",false);
+        return new Result("o'chirildi.",true);
+    }
 }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DashbordController {
     @GetMapping
     public String getDashbord(){
-
         return "dashbort";
     }
 }

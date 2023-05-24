@@ -7,12 +7,26 @@ import spring.warehouse.entity.Measurement;
 import spring.warehouse.payload.Result;
 import spring.warehouse.repository.MeasurmentRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MeasurmentService {
     @Autowired
     MeasurmentRepository measurmentRepository;
+    public List<Measurement> getMeasurmentsService(){
+        return measurmentRepository.findAll();
+    }
+
+    /**
+     * Ma'lumotlar bazasidan measurmentni id bo'yicha olish.
+     * @param id
+     * @return
+     */
+    public Measurement getMeasurmentService(Integer id){
+        Optional<Measurement> optionalMeasurement = measurmentRepository.findById(id);
+        return optionalMeasurement.orElse(null);
+    }
     public Result addMeasurment(Measurement measurement){
         boolean exists = measurmentRepository.existsByName(measurement.getName());
         if (exists)
@@ -20,5 +34,12 @@ public class MeasurmentService {
 
         measurmentRepository.save(measurement);
         return new Result("Added Measurment",true);
+    }
+
+    public Result deleteMeasurmentService(Integer id){
+        Optional<Measurement> optionalMeasurement = measurmentRepository.findById(id);
+        if (!optionalMeasurement.isPresent()) return new Result("Bunday o'lchov birligi mavjud emas.",false);
+        measurmentRepository.deleteById(id);
+        return new Result("O'lchov birliglari o'chirildi.",true);
     }
 }

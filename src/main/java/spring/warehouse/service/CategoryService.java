@@ -44,6 +44,11 @@ public class CategoryService {
         return categories;
     }
 
+    /**
+     * CATEGORY NOMLARINI YANGILASH.
+     * @param categoryDto
+     * @return
+     */
     public Result editCategoryService(CategoryDto categoryDto){
         Optional<Category> optionalCategory = categoryRepository.findById(categoryDto.getParentCategoryId());
         if (optionalCategory.isPresent()){
@@ -55,5 +60,17 @@ public class CategoryService {
         category.setParentCategory(referenceById);
         categoryRepository.save(category);
         return new Result();
+    }
+
+    /**
+     * Categoryni id bo'yicha o'chirish.
+     * @param id
+     * @return
+     */
+    public Result deleteCategory(Integer id){
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (!optionalCategory.isPresent()) return new Result("Bunday Category mavjud emas.",false);
+        categoryRepository.deleteById(id);
+        return new Result("Category o'chirildi.",true);
     }
 }

@@ -2,6 +2,7 @@ package spring.warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,11 @@ public class OutputController {
     public HttpEntity<?> editOutput(@RequestBody OutputDto outputDto,Integer id){
         Result result = outputService.editOutputService(outputDto, id);
         return ResponseEntity.status(result.isSuccess()?201:409).body(result);
+    }
+    @DeleteMapping("/delete/{id}")
+    public HttpEntity<?> deleteOutput(@PathVariable Integer id){
+        Result result = outputService.deleteOutputService(id);
+        return ResponseEntity.status(result.isSuccess()? HttpStatus.ACCEPTED:HttpStatus.CONFLICT).body(result);
     }
 
 }

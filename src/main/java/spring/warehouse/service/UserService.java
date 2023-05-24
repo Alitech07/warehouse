@@ -21,6 +21,11 @@ public class UserService {
     @Autowired
     WarehouseRepository warehouseRepository;
 
+    /**
+     * Malumotlar bazasiga yangi foydalanuvchi qo'shish.
+     * @param userDto
+     * @return
+     */
     public Result addUser(UserDto userDto){
         boolean exists = userRepository.existsByPhoneNumber(userDto.getPhoneNumber());
         if (exists)
@@ -40,11 +45,20 @@ public class UserService {
         return new Result("Added User",true);
     }
 
+    /**
+     * Ma'lumotlar bazasidan barcha foydalanuvchilarni olish.
+     * @return
+     */
     public List<User> getUsers(){
         List<User> users = userRepository.findAll();
         return users;
     }
 
+    /**
+     * Ma'lumotlar bazasidan bitta foydalanuchini id bo'yicha olish.
+     * @param id
+     * @return
+     */
     public Result getUser(Integer id){
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()){
@@ -54,6 +68,12 @@ public class UserService {
         return new Result("User not found", false);
     }
 
+    /**
+     * Foydalanuvchi ma'lumotlarini yangilash.
+     * @param userDto
+     * @param id
+     * @return
+     */
     public Result editUser(UserDto userDto,Integer id){
         Optional<User> optionalUser = userRepository.findById(id);
         if (!optionalUser.isPresent()){
@@ -69,6 +89,11 @@ public class UserService {
         return new Result("User edited",true);
     }
 
+    /**
+     * Ma'lumotlar bazasidan foydalanuvchini id bo'yicha o'chirish.
+     * @param id
+     * @return
+     */
     public Result deleteUser(Integer id){
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) return new Result("User not found",false);
