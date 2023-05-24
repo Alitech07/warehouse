@@ -1,6 +1,8 @@
 package spring.warehouse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.warehouse.entity.Category;
 import spring.warehouse.payload.CategoryDto;
@@ -26,9 +28,10 @@ public class CategoryController {
         return result;
     }
 
-    public Result edit(@RequestBody CategoryDto categoryDto){
-
-        return new Result();
+    @PutMapping("/{id}")
+    public HttpEntity<?> edit(@RequestBody CategoryDto categoryDto,@PathVariable Integer id){
+        Result result = categoryService.editCategoryService(categoryDto);
+        return ResponseEntity.status(result.isSuccess()?200:409).body(result);
     }
 
     /**

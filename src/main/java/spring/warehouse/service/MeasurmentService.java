@@ -36,6 +36,11 @@ public class MeasurmentService {
         return new Result("Added Measurment",true);
     }
 
+    /**
+     * Ma'lumotlar bazasidan o'lchob birligini id bo'yicha o'chirish.
+     * @param id
+     * @return
+     */
     public Result deleteMeasurmentService(Integer id){
         Optional<Measurement> optionalMeasurement = measurmentRepository.findById(id);
         if (!optionalMeasurement.isPresent()) return new Result("Bunday o'lchov birligi mavjud emas.",false);

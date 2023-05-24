@@ -10,6 +10,12 @@ import spring.warehouse.repository.SuplierRepository;
 public class SuplierService {
     @Autowired
     SuplierRepository suplierRepository;
+
+    /**
+     *
+     * @param supplier
+     * @return
+     */
     public Result addSupplier(Supplier supplier){
         boolean exists = suplierRepository.existsByPhoneNumber(supplier.getPhoneNumber());
         if (exists)

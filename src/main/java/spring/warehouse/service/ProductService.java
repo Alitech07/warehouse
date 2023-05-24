@@ -13,6 +13,7 @@ import spring.warehouse.repository.CategoryRepository;
 import spring.warehouse.repository.MeasurmentRepository;
 import spring.warehouse.repository.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,11 @@ public class ProductService {
     AttachmentRepository attachmentRepository;
     @Autowired
     MeasurmentRepository measurmentRepository;
+
+    public List<Product> getProductService(){
+        return productRepository.findAll();
+    }
+
 
     public Result addProduct(ProductDto productDto){
         boolean exists = productRepository.existsByNameAndCategoryId(productDto.getName(),productDto.getCategoryId());
@@ -50,4 +56,10 @@ public class ProductService {
         return new Result("Added Product",true);
     }
 
+    public Result deleteProductService(Integer id){
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (!optionalProduct.isPresent()) return new Result("Bunday product mavjud emas.",false);
+        productRepository.deleteById(id);
+        return new Result("Product o'chirildi.",true);
+    }
 }
